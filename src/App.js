@@ -1,18 +1,30 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Auth from "./components/Auth";
 import Main from "./components/Main"; 
 
 function App() {
+  const [clientToken, setClientToken] = useState(
+    localStorage.getItem("clientToken")
+  );
+
+  const setToken = (token) => {
+    setClientToken(token);
+    localStorage.setItem("clientToken", token);
+  };
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/app" element={<Main />} />
+        <Route
+          path="/auth"
+          element={
+            clientToken ? <Main /> : <Auth setClientToken={setToken} />
+          }
+        />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 

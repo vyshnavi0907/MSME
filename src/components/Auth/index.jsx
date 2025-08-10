@@ -1,13 +1,38 @@
-
-import React, { useState } from "react";
+// src/components/Auth/index.jsx
+import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./index.module.css";
 
-export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
+const loginUser = async (credentials) => {
+  return fetch(`${SERVER_URL}/api/auth/signin`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+};
+
+export default function Auth(props) {
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const toggleMode = () => setIsLogin(!isLogin);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await loginUser({ email, password });
+    setLoading(false);
+    if(response.error) return;
+    if(response.token){
+      props.setClientToken(response.token);
+      return;
+    }
+  };
   return (
     <motion.div
       className={styles.authPage}
@@ -18,15 +43,27 @@ export default function Auth() {
       <div className={styles.authBox}>
         <h2 className={styles.title}>{isLogin ? "Login" : "Sign Up"}</h2>
 
-        <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <label>
             Email
-            <input type="email" placeholder="you@example.com" required />
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="you@example.com"
+              required
+            />
           </label>
 
           <label>
             Password
-            <input type="password" placeholder="Enter your password" required />
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              placeholder="Enter your password"
+              required
+            />
           </label>
 
           {!isLogin && (
@@ -54,7 +91,11 @@ export default function Auth() {
 
         <p className={styles.toggleText}>
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button className={styles.toggleBtn} onClick={toggleMode} type="button">
+          <button
+            className={styles.toggleBtn}
+            onClick={toggleMode}
+            type="button"
+          >
             {isLogin ? "Sign Up" : "Login"}
           </button>
         </p>
