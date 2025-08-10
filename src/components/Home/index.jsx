@@ -33,16 +33,16 @@ export default function Home() {
       {/* Add Header */}
       <header className={styles.header}>
         <div className={styles.logo}>MSME AI Studio</div>
-        <button
+        <motion.button
           className={styles.loginBtn}
           onClick={() => navigate("/auth")}
           whileHover={{ scale: 1.07, boxShadow: "0 0 15px #3db7cc" }}
           whileTap={{ scale: 0.95 }}
         >
           Login / Signup
-        </button>
+        </motion.button>
       </header>
-      
+
       <div className={styles.animatedBg}>
         {[...Array(10)].map((_, i) => (
           <span key={i} className={styles.circle} />

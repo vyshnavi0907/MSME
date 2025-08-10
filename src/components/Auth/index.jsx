@@ -1,4 +1,4 @@
-// src/components/Auth/index.jsx
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./index.module.css";
