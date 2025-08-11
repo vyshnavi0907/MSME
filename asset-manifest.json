@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MSME/static/css/main.0cfa08d1.css",
+    "main.js": "/MSME/static/js/main.45ff4c51.js",
+    "static/js/453.e944e872.chunk.js": "/MSME/static/js/453.e944e872.chunk.js",
+    "index.html": "/MSME/index.html",
+    "main.0cfa08d1.css.map": "/MSME/static/css/main.0cfa08d1.css.map",
+    "main.45ff4c51.js.map": "/MSME/static/js/main.45ff4c51.js.map",
+    "453.e944e872.chunk.js.map": "/MSME/static/js/453.e944e872.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0cfa08d1.css",
+    "static/js/main.45ff4c51.js"
+  ]
+}
