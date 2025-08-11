@@ -12,6 +12,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+const getData = (instructions) => {
+  return fetch(`${SERVER_URL}/api/claude`,{
+    method: 'POST',
+    headers:{
+      'content-type':'application/json'
+    },
+    body: JSON.stringify(instructions)
+  })
+}
+
 const AdMitra = () => {
   const [input, setInput] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -49,6 +61,7 @@ const AdMitra = () => {
     setInput("");
     setTyping(true);
 
+    
     setTimeout(() => {
       const botResponse = { text: "AI response goes here.", from: "bot" };
       const updated = [...updatedChats];
